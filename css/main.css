@@ -1,0 +1,89 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Character Attributes */
+    --hairClr: red;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    background-size: 100%;
+    background-image: url("../img/CharCreation.jpg");
+}
+
+
+
+canvas {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
