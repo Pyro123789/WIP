@@ -10,7 +10,8 @@ c.fillRect(0, 0, canvas.width, canvas.height)
 
 
 
-
+const background = new Image();
+background.src = "../img/bg.jpg";
 
 class Char { 
     constructor({position, velocity}) {
@@ -39,7 +40,14 @@ class Char {
             this.velocity.x = 0;
             this.position.x = canvas.width - this.width;
         }
-
+        if (this.position.x + this.velocity.x <= 0) {
+            this.velocity.x = 0;
+            this.position.x = 0;
+        }
+        if (this.position.y + this.velocity.y <= 0) {
+            this.velocity.y = 0;
+            this.position.y = 0;
+        }
     }
 }
 
@@ -104,8 +112,13 @@ const movementKeys = {
 
 function animate() {
     window.requestAnimationFrame(animate);
-    c.fillStyle = 'black';
-    c.fillRect(0, 0, canvas.width, canvas.height)
+    // c.fillStyle = 'black';
+    // c.fillRect(0, 0, canvas.width, canvas.height)
+    
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    c.drawImage(background, 0, 0, canvas.width, canvas.height)
+    // c.drawImage(background, player.position.x, player.position.y, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+
 
     player.update();
     // enemy.update();
