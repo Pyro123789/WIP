@@ -6,12 +6,13 @@ canvas.height = 576;
 
 c.fillRect(0, 0, canvas.width, canvas.height)
 
-
-
+const skills = [1, 2, 3, 4]
+const speed = 10;
+const scale = 3;
 
 
 const background = new Image();
-background.src = "../img/bg.jpg";
+background.src = "../img/bg.jpg"; // bg dimensions: 1920 x 1080
 
 class Char { 
     constructor({position, velocity}) {
@@ -58,8 +59,8 @@ const player = new Char({
         y: 250
     },
     velocity: {
-        x: 10,
-        y: 10
+        x: 0,
+        y: 0
     }
 })
 
@@ -115,9 +116,19 @@ function animate() {
     // c.fillStyle = 'black';
     // c.fillRect(0, 0, canvas.width, canvas.height)
     
-    c.clearRect(0, 0, canvas.width, canvas.height);
+
+
+
+    c.save()
+    c.scale(scale, scale);
+    c.translate(0, 0);
+    // c.translate(0, c)
+    // c.clearRect(0, 0, canvas.width, canvas.height);
     c.drawImage(background, 0, 0, canvas.width, canvas.height)
+    c.restore()
     // c.drawImage(background, player.position.x, player.position.y, canvas.width, canvas.height, 0, 0, canvas.width, canvas.height);
+
+
 
 
     player.update();
@@ -127,20 +138,20 @@ function animate() {
     player.velocity.y = 0;
 
     if (movementKeys.a.pressed) {
-        player.velocity.x = -10;
+        player.velocity.x = -speed;
     }
     if (movementKeys.d.pressed) {
-        player.velocity.x = 10;
+        player.velocity.x = speed;
     }
     if (movementKeys.d.pressed && movementKeys.a.pressed) {
         player.velocity.x = 0;
     }
 
     if (movementKeys.w.pressed) {
-        player.velocity.y = -10;
+        player.velocity.y = -speed;
     }
     if (movementKeys.s.pressed) {
-        player.velocity.y = 10;
+        player.velocity.y = speed;
     }
     if (movementKeys.w.pressed && movementKeys.s.pressed) {
         player.velocity.y = 0;
@@ -168,7 +179,6 @@ window.addEventListener('keydown', (event) => {
         case 'd':
             movementKeys.d.pressed = true;
             break;
-            
 
 
 
@@ -190,7 +200,164 @@ window.addEventListener('keyup', (event) => {
         case 'd':
             movementKeys.d.pressed = false;
             break;
-        }
+    }
 })
+
+
+
+// ! Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills
+// ! Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills
+// ! Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills
+// ! Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills
+// ! Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills
+// ! Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills
+// ! Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills
+// ! Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills Skills
+
+const dashCooldown = 0.3;
+
+
+const skillsID = [1, 2, 3, 4, 5]
+/**
+ * 
+ * 
+ * ? SKILLS ID DATA SET:
+ * ? SKILLS ID DATA SET:
+ * ? SKILLS ID DATA SET:
+ * ? SKILLS ID DATA SET:
+ * 1: Basic Skill 1
+ * 2: Basic Skill 2
+ * 3: Basic Skill 3
+ * 4: Basic Skill 4
+ * ! 5-7: Basic Dash I-III
+ * ! 8-10: Advanced Dash I-III
+ * 
+ * 
+ */
+
+const skillKeys = {
+    one: {
+        activated: false
+    },
+    q: {
+        activated: false
+    },
+}
+
+const skillTimer = {
+    one: 0,
+    two: 0,
+    three: 0,
+    four: 0,
+    q: 0,
+}
+
+function dash(multiplier) {
+    if (player.velocity.x > 0) player.position.x += multiplier
+    if (player.velocity.y > 0) player.position.y += multiplier
+    if (player.velocity.x < 0) player.position.x -= multiplier
+    if (player.velocity.y < 0) player.position.y -= multiplier 
+}
+
+function skillActivate() {
+    if (skillKeys.one.activated && skillTimer.one == 0) {
+        // alert("Skill One Activated!");
+        skillTimer.one = 1;
+
+        if (skillsID[0] == 1) {
+            // c.fillStyle = 'red';
+            // player.position.x += 50
+        }
+    }
+    // ! FOR DASHES: 
+    if (skillKeys.q.activated && skillTimer.q == 0) {
+        skillTimer.q = dashCooldown;
+        // alert("test")
+        if (skillsID[4] == 5) dash(40);
+        if (skillsID[4] == 6) dash(60);
+        if (skillsID[4] == 7) dash(80);
+        if (skillsID[4] == 8) dash(100);
+        if (skillsID[4] == 9) dash(125);
+        if (skillsID[4] == 10) dash(150);
+    }
+
+
+}
+
+function skillCooldown() {
+    (skillTimer.one > 0) ? skillTimer.one -= 0.1 : skillTimer.one = 0;
+    (skillTimer.q > 0) ? skillTimer.q -= 0.1 : skillTimer.q = 0;
+    // alert(skillTimer.q);
+}
+
+
+
+window.addEventListener('keyup', (event) => {
+    switch(event.key) {
+        case '1':
+            skillKeys.one.activated = true;
+            skillActivate();
+            break;
+        case 'q':
+            skillKeys.q.activated = true;
+            skillActivate();
+        break;
+        }
+    }
+)
+
+
+setInterval(skillCooldown, 100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
